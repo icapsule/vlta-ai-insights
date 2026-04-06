@@ -2,8 +2,7 @@ name: Cross-Post to Dev.to
 on:
   push:
     branches: [ main ]
-    # 暂时去掉具体的 paths 限制，确保任何推送到 main 的改动都能触发
-    # 这样当你修改本 yml 文件时，它也会立即跑一次给你看效果
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -11,11 +10,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 必须设置为 0，否则插件找不到文件历史
 
       - name: Publish to Dev.to
         uses: sinedied/publish-devto@v2
         with:
           devto_key: ${{ secrets.DEVTO_API_KEYS }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          base_url: https://insights.vltaai.com/
-          conventional_commits: true
+          # 删掉了报错的 base_url
