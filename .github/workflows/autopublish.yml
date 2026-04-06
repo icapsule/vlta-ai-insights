@@ -2,7 +2,7 @@ name: Cross-Post to Dev.to
 on:
   push:
     branches: [ main ]
-    paths: [ '**.md' ] # 关键修改：监听根目录下及所有 md 文件
+    paths: [ "*.md" ] # 关键修改：监听根目录下及所有 md 文件
 
 jobs:
   publish:
