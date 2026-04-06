@@ -6,7 +6,7 @@ datePublished: 2026-04-06T20:48:53.295Z
 cuid: cmnnnxs8c01yp2eqee3gx5mvw
 slug: how-to-build-an-llm-powered-personal-knowledge-base
 cover: https://cdn.hashnode.com/uploads/covers/69cd820f3085402b9c6231bd/aaca48a3-2d13-43cb-a9f9-bff1767343cc.png
-tags: ai, knowledge-management, llm, personal-knowledge-management, knowledge-management-system
+tags: ai, knowledge-management, llm, knowledge-management-system
 
 ---
 
