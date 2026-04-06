@@ -6,7 +6,7 @@ datePublished: 2026-04-02T16:17:31.215Z
 cuid: cmnhohe8e00jc2di13xm5d3mp
 slug: from-manual-checkpoints-to-autonomous-partners-rethinking-devsecops-with-agentic-ai
 cover: https://cdn.hashnode.com/uploads/covers/69cd820f3085402b9c6231bd/db8062a5-8820-4eb3-b742-ab1e8c289afc.jpg
-tags: ai, software-engineering, cicd, devsecops, pipeline, ci-cd, transformation, agentic-ai, agentic-ai-development
+tags: ai, software-engineering, devsecops, agentic-ai-development
 
 ---
 
