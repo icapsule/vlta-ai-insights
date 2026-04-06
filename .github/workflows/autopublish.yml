@@ -1,8 +1,8 @@
-name: Cross-Post to Dev.to & Medium
+name: Cross-Post to Dev.to
 on:
   push:
     branches: [ main ]
-    paths: [ 'posts/**.md' ] # 监听 posts 文件夹下的 md 变动
+    paths: [ '**.md' ] # 关键修改：监听根目录下及所有 md 文件
 
 jobs:
   publish:
@@ -16,7 +16,7 @@ jobs:
         with:
           devto_key: ${{ secrets.DEVTO_API_KEYS }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          base_url: https://insights.vltaai.com/ # 你的 Hashnode 域名
+          base_url: https://insights.vltaai.com/
           conventional_commits: true
 
       
