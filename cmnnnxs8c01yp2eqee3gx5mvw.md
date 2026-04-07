@@ -1,14 +1,10 @@
 ---
 title: "How to Build an LLM-Powered Personal Knowledge Base "
-seoTitle: "How to Build an LLM Personal Knowledge Base (2026 Guide)"
-seoDescription: "Turn your scattered notes into an intelligent second brain. Step-by-step guide on using LLMs to automate and query your personal knowledge base."
-datePublished: 2026-04-06T20:48:53.295Z
-cuid: cmnnnxs8c01yp2eqee3gx5mvw
-slug: how-to-build-an-llm-powered-personal-knowledge-base
-cover: https://cdn.hashnode.com/uploads/covers/69cd820f3085402b9c6231bd/aaca48a3-2d13-43cb-a9f9-bff1767343cc.png
 tags: ai, knowledge-management, llm, knowledge-management-system
-
+canonical_url: https://insights.vltaai.com/how-to-build-an-llm-powered-personal-knowledge-base
+published: false
 ---
+
 
 In early April 2026, Andrej Karpathy shared a deceptively simple workflow that lit up the AI community. In a tweet that racked up millions of views, he described using large language models (LLMs) not just to answer questions, but to **actively build and maintain a personal knowledge base**—a living wiki of interconnected Markdown files stored as plain text, complete with summaries, backlinks, concept articles, and visualizations. He called it a “persistent, compounding artifact.”
 

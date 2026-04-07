@@ -1,14 +1,10 @@
 ---
 title: "From Manual Checkpoints to Autonomous Partners: Rethinking DevSecOps with Agentic AI"
-seoTitle: "Rethinking DevSecOps with Agentic AI | The Future of Securit"
-seoDescription: "Learn how Agentic AI transforms DevSecOps from a manual hurdle into an autonomous partner. Real-world insights from a winning hackathon prototype."
-datePublished: 2026-04-02T16:17:31.215Z
-cuid: cmnhohe8e00jc2di13xm5d3mp
-slug: from-manual-checkpoints-to-autonomous-partners-rethinking-devsecops-with-agentic-ai
-cover: https://cdn.hashnode.com/uploads/covers/69cd820f3085402b9c6231bd/db8062a5-8820-4eb3-b742-ab1e8c289afc.jpg
 tags: ai, software-engineering, devsecops, agentic-ai-development
-
+canonical_url: https://insights.vltaai.com/from-manual-checkpoints-to-autonomous-partners-rethinking-devsecops-with-agentic-ai
+published: false
 ---
+
 
 In traditional industries, digital transformation often feels like a tug-of-war between **velocity** and **security**. We want to ship faster, but the "Security Checkpoint" remains a manual, friction-heavy hurdle.
 
