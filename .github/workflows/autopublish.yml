@@ -11,25 +11,51 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 
+          fetch-depth: 0
 
-      - name: Clean Front-matter for Dev.to
-        # 这一步用 Python 自动把标签砍到 4 个以内，并清理冗余字段
+      - name: Hard-Clean Markdown for Dev.to
+        shell: python
         run: |
-          python3 -c "
           import os, re
           for f in os.listdir('.'):
               if f.endswith('.md') and f != 'README.md':
-                  with open(f, 'r') as file:
-                      content = file.read()
-                  # 核心：只保留 title, description, tags, cover_image, published
-                  # 自动把 tags 限制在前 4 个
-                  content = re.sub(r'tags: (.*)', lambda m: 'tags: ' + ', '.join(m.group(1).split(',')[:4]), content)
-                  # 兼容 cover 字段
-                  content = content.replace('cover:', 'cover_image:')
-                  with open(f, 'w') as file:
-                      file.write(content)
-          "
+                  print(f'Processing {f}...')
+                  with open(f, 'r', encoding='utf-8') as file:
+                      text = file.read()
+                  
+                  # 找到 Hashnode 的元数据部分
+                  parts = text.split('---')
+                  if len(parts) < 3: continue
+                  
+                  header = parts[1]
+                  body = '---'.join(parts[2:])
+                  
+                  # 提取标题
+                  title_match = re.search(r'title:\s*"(.*)"', header)
+                  title = title_match.group(1) if title_match else "Untitled"
+                  
+                  # 提取并严格限制标签 (只取前4个，去除非法字符)
+                  tags_match = re.search(r'tags:\s*(.*)', header)
+                  if tags_match:
+                      raw_tags = tags_match.group(1).split(',')
+                      clean_tags = [re.sub(r'[^a-z0-9-]', '', t.lower().strip()) for t in raw_tags if t.strip()]
+                      tags_str = ', '.join(clean_tags[:4])
+                  else:
+                      tags_str = "ai, tech"
+
+                  # 提取 Slug 用于 Canonical URL (这是 IP 积累的关键)
+                  slug_match = re.search(r'slug:\s*(.*)', header)
+                  canonical = f"https://insights.vltaai.com/{slug_match.group(1).strip()}" if slug_match else ""
+
+                  # 重构一个极其干净的 Header
+                  new_header = f"title: \"{title}\"\n"
+                  new_header += f"tags: {tags_str}\n"
+                  if canonical: new_header.append = f"canonical_url: {canonical}\n"
+                  new_header += "published: false\n"
+                  
+                  with open(f, 'w', encoding='utf-8') as file:
+                      file.write('---\n' + new_header + '---\n' + body)
+                  print(f'Successfully rebuilt {f}')
 
       - name: Publish to Dev.to
         uses: sinedied/publish-devto@v2
