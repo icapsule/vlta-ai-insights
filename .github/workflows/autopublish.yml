@@ -16,38 +16,47 @@ jobs:
       - name: Install YAML parser
         run: pip install pyyaml
 
-      - name: Bulletproof Front-matter Clean
+      - name: Bulletproof Front-matter Clean & Draft Removal
         shell: python
         run: |
           import os, yaml
           for f in os.listdir('.'):
-              if f.endswith('.md') and f != 'README.md':
-                  with open(f, 'r', encoding='utf-8') as file:
-                      content = file.read()
-                  parts = content.split('---')
-                  if len(parts) < 3: continue
+              if not f.endswith('.md') or f == 'README.md': 
+                  continue
                   
-                  try:
-                      fm = yaml.safe_load(parts[1])
-                  except Exception:
-                      continue
-                      
-                  new_fm = {'published': False}
-                  new_fm['title'] = fm.get('title', 'Untitled').strip('\"\'')
+              # 核心拦截：如果是 Hashnode 的草稿，直接在 Runner 中删除，不让 Dev.to 看到
+              if f.startswith('draft-'):
+                  os.remove(f)
+                  print(f'Removed Hashnode draft: {f}')
+                  continue
                   
-                  tags = fm.get('tags', '')
-                  tag_list = tags.split(',') if isinstance(tags, str) else (tags if isinstance(tags, list) else [])
-                  clean_tags = [''.join(c for c in str(t).lower() if c.isalnum() or c == '-') for t in tag_list]
-                  new_fm['tags'] = [t for t in clean_tags if t][:4]
+              with open(f, 'r', encoding='utf-8') as file:
+                  content = file.read()
+              parts = content.split('---')
+              if len(parts) < 3: continue
+              
+              try:
+                  fm = yaml.safe_load(parts[1])
+              except Exception:
+                  continue
                   
-                  if 'slug' in fm:
-                      new_fm['canonical_url'] = f"https://insights.vltaai.com/{fm['slug']}"
-                  if 'cover' in fm:
-                      new_fm['cover_image'] = fm['cover']
-                  
-                  new_header = yaml.dump(new_fm, default_flow_style=False, sort_keys=False)
-                  with open(f, 'w', encoding='utf-8') as file:
-                      file.write('---\n' + new_header + '---\n' + '---'.join(parts[2:]))
+              new_fm = {'published': False}
+              new_fm['title'] = fm.get('title', 'Untitled').strip('\"\'')
+              
+              # 标签处理：严格控制为纯文本的逗号分隔符
+              tags = fm.get('tags', '')
+              tag_list = tags.split(',') if isinstance(tags, str) else (tags if isinstance(tags, list) else [])
+              clean_tags = [''.join(c for c in str(t).lower() if c.isalnum() or c == '-') for t in tag_list]
+              new_fm['tags'] = ', '.join([t for t in clean_tags if t][:4])
+              
+              if 'slug' in fm:
+                  new_fm['canonical_url'] = f"https://insights.vltaai.com/{fm['slug']}"
+              if 'cover' in fm:
+                  new_fm['cover_image'] = fm['cover']
+              
+              new_header = yaml.dump(new_fm, default_flow_style=False, sort_keys=False)
+              with open(f, 'w', encoding='utf-8') as file:
+                  file.write('---\n' + new_header + '---\n' + '---'.join(parts[2:]))
 
       - name: Publish to Dev.to
         uses: sinedied/publish-devto@v2
