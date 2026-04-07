@@ -23,18 +23,15 @@ jobs:
                   with open(f, 'r', encoding='utf-8') as file:
                       text = file.read()
                   
-                  # 找到 Hashnode 的元数据部分
                   parts = text.split('---')
                   if len(parts) < 3: continue
                   
                   header = parts[1]
                   body = '---'.join(parts[2:])
                   
-                  # 提取标题
                   title_match = re.search(r'title:\s*"(.*)"', header)
                   title = title_match.group(1) if title_match else "Untitled"
                   
-                  # 提取并严格限制标签 (只取前4个，去除非法字符)
                   tags_match = re.search(r'tags:\s*(.*)', header)
                   if tags_match:
                       raw_tags = tags_match.group(1).split(',')
@@ -43,14 +40,13 @@ jobs:
                   else:
                       tags_str = "ai, tech"
 
-                  # 提取 Slug 用于 Canonical URL (这是 IP 积累的关键)
                   slug_match = re.search(r'slug:\s*(.*)', header)
                   canonical = f"https://insights.vltaai.com/{slug_match.group(1).strip()}" if slug_match else ""
 
-                  # 重构一个极其干净的 Header
                   new_header = f"title: \"{title}\"\n"
                   new_header += f"tags: {tags_str}\n"
-                  if canonical: new_header.append = f"canonical_url: {canonical}\n"
+                  # 修复点：将 .append 改为 +=
+                  if canonical: new_header += f"canonical_url: {canonical}\n"
                   new_header += "published: false\n"
                   
                   with open(f, 'w', encoding='utf-8') as file:
