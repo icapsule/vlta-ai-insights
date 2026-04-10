@@ -1,0 +1,75 @@
+name: Content CI & Cross-Platform Publisher
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - '*.md'
+    paths-ignore:
+      - 'README.md'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - '*.md'
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  validate:
+    name: Lint & Validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: |
+          npm install -g markdownlint-cli
+
+      - name: Lint Markdown files
+        run: |
+          markdownlint '**/*.md' --ignore 'node_modules' --config .markdownlint.json || true
+
+      - name: Check for required frontmatter
+        run: |
+          echo "Scanning for frontmatter..."
+          for file in *.md; do
+            if [ "$file" != "README.md" ] && [ -f "$file" ]; then
+              if ! grep -q "^---" "$file"; then
+                echo "::warning file=$file::Missing YAML frontmatter"
+              fi
+            fi
+          done
+
+  publish:
+    name: Multi-Platform Publish
+    needs: validate
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 1. 发布到 Dev.to
+      - name: Publish to Dev.to
+        uses: maximakymchuk/publish-gh-action@v1
+        continue-on-error: true
+        with:
+          provider: 'devto'
+          token: ${{ secrets.DEVTO_TOKEN }}
+          files: '*.md'
+
+      # 2. 发布到 Hashnode
+      - name: Publish to Hashnode
+        uses: maximakymchuk/publish-gh-action@v1
+        continue-on-error: true
+        with:
+          provider: 'hashnode'
+          token: ${{ secrets.HASHNODE_TOKEN }}
+          files: '*.md'
+
