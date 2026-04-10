@@ -11,29 +11,11 @@ In the era of AI-first development, the tools, architectures, and mental models 
 - **Cloud-Native AI**: The operational realities of running LLMs in production.
 - **Future of Work**: How AI is reshaping developer productivity and team structures.
 
----
-
-## 📚 Featured Articles
-
-### The End of "Agent Plumbing": Why Claude Managed Agents is a Paradigm Shift
-
-**[Read the full article](cmnrys2jb016h2al46ozh4u5m.md)**
-
-> For two years, building production-grade AI agents has been fundamentally dishonest work. Developers spent 80% of their time on **infrastructure theater**—Docker orchestration, state persistence, API wrappers, rate limiting, sandbox management. The remaining 20% went to actual intelligence.
->
-> With **Claude Managed Agents**, Anthropic has declared war on that overhead. This isn't a model upgrade. It's a **runtime transition**—from "LLMs as conversational toy" to "LLMs as managed production infrastructure."
-
-### The CLI Renaissance: Why the Terminal is the Ultimate AI Cockpit
-
-**[Read the full article](cmnrdev9w00k82al461cagy38.md)**
-
-> For decades, the tech industry operated under a seemingly unshakable dogma: **Progress is proportional to pixels.** We believed that the more we could hide the "ugly" skeletal structure of computing behind glossy buttons, translucent windows, and intuitive gestures, the more "advanced" we became. The Command Line Interface (CLI) was relegated to the basement of technology—a ritualistic relic for sysadmins and terminal-dwelling wizards.
->
-> As we navigate the landscape of 2026, a tectonic realignment is underway. The blinking cursor—once dismissed as a nostalgic relic of a bygone era—has been reclaimed as the most sophisticated cockpit of the modern age.
 
 ---
 
 ## 🚀 Publishing Workflow
+
 
 This platform follows a **Local-First, Multi-Platform** distribution strategy. The GitHub repository serves as the single source of truth.
 
