@@ -5,14 +5,13 @@ on:
     branches: [ main ]
     paths:
       - '*.md'
-    paths-ignore:
-      - 'README.md'
+      - '!README.md'
   pull_request:
     branches: [ main ]
     paths:
       - '*.md'
-    paths-ignore:
-      - 'README.md'
+      - '!README.md'
+
 
 jobs:
   validate:
